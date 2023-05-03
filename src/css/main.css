@@ -1,0 +1,221 @@
+body {
+  font-family: Arial;  
+}
+
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
+.left-menu {
+  padding-top: 25px;
+  padding-left: 15px;
+  padding-bottom: 15px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.centered img {
+  width: 150px;
+  border-radius: 50%;
+}
+
+#parent {
+  background: #999;
+  padding: 10px;
+}
+
+.child {
+  background: #ccc;
+  height: 42vh;
+  margin: 10px;
+}
+
+.refresh {
+  margin: 10px;width: 97%;
+}
+
+.editor {
+  margin: 10px;
+}
+
+.textarea {
+  width: 95%;
+  height: 60vh;
+  font-family: Arial;
+  font-size: 12pt;
+}
+
+.canvas {
+  padding-top: 15px;
+}
+
+.hide {
+  display: none;
+}
+
+.site-footer
+{
+  padding:45px 0 20px;
+  font-size:15px;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;  
+  z-index: 1;
+  text-align: center;  
+}
+
+.site-footer a{
+  text-decoration: none;
+}
+
+
+/*high level diagram*/
+
+.header{
+  width: calc(65% - 40px);
+  padding: 0 0 0 15px;
+  font-size: 20px;
+}
+
+.header-content {
+  height: 25px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  background: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+}
+.main {
+  height: 100%;
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+.main-left {
+  width: 65%;
+}
+
+.main-right {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-left > .main-body {
+  width: calc(100% - 35px);
+  margin: 20px 0;
+}
+
+.layer {
+  min-height: 60px;
+  width: 100%;
+  border: 1px solid black;
+  margin: 10px 0;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  padding: 8px 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 20px;
+  background-color: #cccccc;
+
+}
+
+.layer-title {
+  width: 40px;
+  text-orientation: inherit;  
+  font-weight: 700;
+  transform-origin: left;
+  /* https://github.com/niklasvh/html2canvas/issues/1258
+     writing-mode: vertical-rl; */
+  /* transform: rotateZ(180deg); */  
+  transform: translate(50%, 50%) rotate(-90deg);
+  display: block;  
+}
+
+.layer-body {
+  width: 100%;
+  padding: 5px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+}
+
+.layer-body > div {
+  width: calc(50% - 15px);
+  border: 1px solid black;
+  border-radius: 12px;
+  margin: 3px;
+  text-align: center;
+  min-height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #eeeeee;
+}
+
+.layer-right {
+  border: 1px solid black;
+  padding: 8px 8px;
+  border-radius: 20px;
+  background-color: #cccccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 160px;
+  width: 100%;
+}
+
+.layer-right-title {
+  text-align: center;
+  font-weight: 800;
+}
+
+.layer-body-right {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+}
+
+.layer-body-right > div {
+  width: calc(50% - 10px);
+  border: 1px solid black;
+  border-radius: 12px;
+  margin: 3px;
+  text-align: center;
+  min-height: 35px;
+  background: #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

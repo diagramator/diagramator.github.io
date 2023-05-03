@@ -1,0 +1,30 @@
+{
+  "name": "diagramator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "@babel/core": "7.4.4",
+    "@babel/preset-env": "7.4.4",
+    "babel-loader": "8.0.5",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "5.3.2",
+    "js-yaml": "^4.1.0",
+    "style-loader": "^3.3.1",
+    "webpack": "5.73.0",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.9.3",
+    "yaml-loader": "^0.8.0"
+  },
+  "scripts": {
+    "dev": "export NODE_ENV=development && webpack-dev-server --progress --config=webpack.dev.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "export NODE_ENV=production && webpack --progress --config=webpack.prod.config.js"
+  },
+  "author": {
+    "name": "JRichardsz.java",
+    "email": "jrichardsz.java@gmail.com"
+  },
+  "license": "MIT"
+}
