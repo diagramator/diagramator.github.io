@@ -1,6 +1,7 @@
 import './css/main.css';
 const { load } = require("js-yaml");
 var selectedTemplate;
+var initialWidth;
 
 document.addEventListener("DOMContentLoaded", async function (event) {
     window["globalLibraries"] = {
@@ -20,10 +21,12 @@ document.addEventListener("DOMContentLoaded", async function (event) {
         selectTemplatesElement.appendChild(opt);
     }
 
+    initialWidth = document.getElementById("LeftCol").offsetWidth;
 
     selectTemplatesElement.addEventListener('change', onChangeTemplate);
-    document.getElementById('refreshButton').addEventListener("click", onClickRefresh);
+    document.getElementById('renderButton').addEventListener("click", onClickRefresh);
     document.getElementById('exportButton').addEventListener("click", onClickExport);
+    document.getElementById('widthSlider').addEventListener("change", onChangeWidthSlider);
 });
 
 
@@ -33,7 +36,8 @@ function onChangeTemplate() {
     if(selectedTemplate.value=="-"){
         document.getElementById('yamlTextArea').value = "";
         document.getElementById("canvas").innerHTML = '';
-        document.getElementById('refreshButton').style.display = 'none';
+        document.getElementById('renderButton').style.display = 'none';
+        document.getElementById('widthSlider').style.display = 'none';
     }else{
         var resourcesUrl = selectedTemplate.getAttribute("resources_url");
         fetch(`${resourcesUrl}/dist/data.yaml?version=${generateUUID()}`)
@@ -42,7 +46,8 @@ function onChangeTemplate() {
             })
             .then(function (rawYaml) {
                 document.getElementById('yamlTextArea').value = rawYaml;
-                document.getElementById('refreshButton').style.display = 'inline';
+                document.getElementById('renderButton').style.display = 'inline';
+                document.getElementById('widthSlider').style.display = 'inline';
             });
     }
 
@@ -55,6 +60,12 @@ function onClickRefresh() {
     document.head.appendChild(imported);
     document.getElementById('exportButton').style.display = 'inline';
 }
+
+
+function onChangeWidthSlider(event) {
+    var newWidth = new Number(initialWidth) + new Number(event.target.value)*5;
+    document.getElementById('LeftCol').style.width = `${newWidth}px`;
+}    
 
 function generateUUID() { // Public Domain/MIT
     var d = new Date().getTime();//Timestamp
@@ -86,10 +97,41 @@ function downloadURI(uri, name) {
 //Your modified code.
 function onClickExport() {
     var fileName = selectedTemplate.innerHTML.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '_');
-    html2canvas(document.getElementById('canvas')).then(canvas => {
+    html2canvas(document.getElementById('canvas'), {allowTaint: true}).then(canvas => {
         var myImage = canvas.toDataURL();
-        downloadURI(myImage, `${fileName}-${getDateAsSimpleFormat()}.png`);
+        sendImageToClipboard(myImage)
+        downloadURI(myImage, `${fileName}-${getDateAsSimpleFormat()}.png`);        
     });
+}
+
+function sendImageToClipboard(image){
+    var img = document.createElement('img');
+    img.src = image
+    
+    var div = document.createElement('div');
+    div.contentEditable = true;
+    div.appendChild(img);
+    document.body.appendChild(div);
+    
+    // do copy
+    selectText(div);
+    document.execCommand('Copy');
+    document.body.removeChild(div);
+}
+
+function selectText(element) {
+    var doc = document;
+    if (doc.body.createTextRange) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(element);
+        range.select();
+    } else if (window.getSelection) {
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(element);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
 }
 
 function getDateAsSimpleFormat() {

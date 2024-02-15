@@ -67,6 +67,10 @@ If you want to share your diagram with thw world:
 - copy image to clipboard
 - horizontal split pane (editor/canvas) resize <->
 
+## Regards
+
+- Icon: https://www.flaticon.com/free-icon/diagram_554579 <a href="https://www.flaticon.com/free-icons/diagram" title="diagram icons">Diagram icons created by Freepik - Flaticon</a>
+
 ## Contributors
 
 <table>
