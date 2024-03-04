@@ -229,3 +229,33 @@ body {
 #RightCol {
   width: 65%;
 }
+
+/* margin bottom*/
+
+.margin_bottom {
+  margin-bottom: 10px;
+}
+
+/*3 columns style*/
+
+.column_3 {
+  float: left;
+  width: 30%;
+  padding: 10px;
+  /* height: 700px; */
+}
+
+/*Infrastructure*/
+
+.dotted {
+  border: dotted 3px black
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+.grid-item {
+  text-align: center;
+}

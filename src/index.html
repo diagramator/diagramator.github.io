@@ -16,25 +16,41 @@
 
                 <h1>Diagramator</h1>
 
-                <label for="templates">Select a template:</label>
+                <section class="margin_bottom">
+                    <label for="templates">Select a template:</label>
 
-                <br><br>
+                    <select name="templates" id="templates" style="width: 95%;">
+                        <option value="-">Select ...</option>                
+                    </select>
+                </section>                
 
-                <select name="templates" id="templates" style="width: 95%;">
-                    <option value="-">Select ...</option>                
-                </select>
+                <section class="margin_bottom">
+                    <label for="widthSlider">Width:</label>                    
+                </section>
 
-                <br><br>
+                <section class="margin_bottom">
+                    <input id="widthSlider" type="range" min="1" max="100" value="1" />                       
+                </section>                
 
-                <button id="renderButton" type="button" class="hide">Render diagram</button> 
-                <br><br>
-                <input id="widthSlider" type="range" min="1" max="100" value="1" class="hide"/>
+                <section class="margin_bottom">
+                    <label for="heigthSlider">Height:</label>                    
+                </section>
                 
-                <br><br>
-        
+                <section class="margin_bottom">
+                    <input id="heigthSlider" type="range" min="1" max="100" value="1"/>  
+                </section>                      
+
+                <section class="margin_bottom">
+                    <button id="renderButton" type="button" class="hide">Render diagram</button> 
+                </section> 
+                
+                        
                 <textarea type="text"  id="yamlTextArea" class="textarea" >
                 </textarea>            
             </div>
+            <footer class="site-footer">
+                <span> <a href="https://github.com/diagramator/diagramator.github.io" target="_blank">&#128200; diagramator.github.io - v1.0.1</a> | Made with &#x2665; by <a href="https://github.com/jrichardsz" target="_blank">JRichardsz</a></span>        
+          </footer> 
         </div>
 
         <div id="RightCol" >
@@ -47,12 +63,6 @@
         </div>
 
     </div>
-
-
-
-  <footer class="site-footer">
-        <span> <a href="https://github.com/diagramator/diagramator.github.io" target="_blank">&#128200; diagramator.github.io - v1.0.1</a> | Made with &#x2665; by <a href="https://github.com/jrichardsz" target="_blank">JRichardsz</a></span>        
-  </footer>    
 
 </body>
 

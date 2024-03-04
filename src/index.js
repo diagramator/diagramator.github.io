@@ -1,12 +1,18 @@
 import './css/main.css';
 const { load } = require("js-yaml");
 var selectedTemplate;
-var initialWidth;
+var initialHeightPx = 700;
+var initialWidthPercentage = 65;
+var isDev = false;
 
 document.addEventListener("DOMContentLoaded", async function (event) {
     window["globalLibraries"] = {
         yamlLoad: load
     };
+
+    let params = (new URL(document.location)).searchParams;
+    isDev = params.get("env")=="dev" ? true: false;
+    console.log("isDev",isDev)
 
     const data = await fetch("/templates.yaml");
     const templatesText = await data.text();
@@ -21,12 +27,11 @@ document.addEventListener("DOMContentLoaded", async function (event) {
         selectTemplatesElement.appendChild(opt);
     }
 
-    initialWidth = document.getElementById("LeftCol").offsetWidth;
-
     selectTemplatesElement.addEventListener('change', onChangeTemplate);
     document.getElementById('renderButton').addEventListener("click", onClickRefresh);
     document.getElementById('exportButton').addEventListener("click", onClickExport);
     document.getElementById('widthSlider').addEventListener("change", onChangeWidthSlider);
+    document.getElementById('heigthSlider').addEventListener("change", onChangeHeightSlider);
 });
 
 
@@ -40,7 +45,7 @@ function onChangeTemplate() {
         document.getElementById('widthSlider').style.display = 'none';
     }else{
         var resourcesUrl = selectedTemplate.getAttribute("resources_url");
-        fetch(`${resourcesUrl}/dist/data.yaml?version=${generateUUID()}`)
+        fetch(`${resourcesUrl}${getDataResource()}`)
             .then(function (response) {
                 return response.text();
             })
@@ -56,16 +61,22 @@ function onChangeTemplate() {
 function onClickRefresh() {
     var imported = document.createElement('script');
     var resourcesUrl = selectedTemplate.getAttribute("resources_url");
-    imported.src = `${resourcesUrl}/dist/render.js?version=${generateUUID()}`;
+    imported.src = `${resourcesUrl}${getRenderResource()}`;
     document.head.appendChild(imported);
     document.getElementById('exportButton').style.display = 'inline';
 }
 
 
 function onChangeWidthSlider(event) {
-    var newWidth = new Number(initialWidth) + new Number(event.target.value)*5;
-    document.getElementById('LeftCol').style.width = `${newWidth}px`;
-}    
+    var newWidth = new Number(initialWidthPercentage) + new Number(event.target.value)*2;
+    document.getElementById('RightCol').style.width = `${newWidth}%`;
+}
+
+function onChangeHeightSlider(event) {
+    var newHeight = new Number(initialHeightPx) + new Number(event.target.value)*10;
+    console.log(initialHeightPx, newHeight)
+    document.getElementById('RightCol').style.height = `${newHeight}px`;
+}  
 
 function generateUUID() { // Public Domain/MIT
     var d = new Date().getTime();//Timestamp
@@ -138,4 +149,20 @@ function getDateAsSimpleFormat() {
     var d = new Date();
     return d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + " " +
         d.getHours() + "-" + d.getMinutes() + "-" + d.getSeconds();
+}
+
+function getRenderResource(){
+    if(isDev){
+        return `/render.js?version=${generateUUID()}`;
+    }else{
+        return `/dist/render.js?version=${generateUUID()}`;
+    }
+}
+
+function getDataResource(){
+    if(isDev){
+        return `/data.yaml?version=${generateUUID()}`;
+    }else{
+        return `/dist/data.yaml?version=${generateUUID()}`;
+    }
 }
