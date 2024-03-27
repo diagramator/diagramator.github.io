@@ -39,9 +39,9 @@ Open `http://localhost:8080` and check the available diagrams
 
 ![](https://i.ibb.co/P4z14hc/diagramator.gif)
 
-## Share tyour diagram
+## Share your diagram
 
-If you want to share your diagram with the world:
+If you want to share your diagram with the world, follow these steps
 
 **In your template**
 
@@ -53,7 +53,7 @@ If you want to share your diagram with the world:
 - Create a git tag
 - Create a cdn url following this [guideline](https://github.com/diagramator/diagramator.github.io/wiki/CDN-Urls)
 
-**In the diagrmator**
+**In the diagramator**
 
 - Update the `public/templates.yaml` with the public url of your template instead localhost
 ```
@@ -65,14 +65,9 @@ If you want to share your diagram with the world:
 - Open a pull request in the official portal: https://github.com/diagramator/diagramator.github.io/pulls
 - Wait the validation and approval
 
-
-
 ## Roadmap
 
-- prevent the double src load
-- load the css as render.js
-- unit tests
-- ui/ux to be more like a yaml editor
+- Check the [issues page](https://github.com/diagramator/diagramator.github.io/issues)
 
 ## Regards
 
