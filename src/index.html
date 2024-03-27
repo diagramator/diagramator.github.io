@@ -3,49 +3,66 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="data:,">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title>Diagramator</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" ></script>
 </head>
 
-<body> 
-    <div class="split left">     
-        <div class="editor">
+<body > 
 
-            <h1>Diagramator</h1>
+    <div id="parent" >
+        <div id="LeftCol" >     
+            <div class="editor">
 
-            <label for="templates">Select a template:</label>
+                <h1>Diagramator</h1>
 
-            <br><br>
+                <section class="margin_bottom">
+                    <label for="templates">Select a template:</label>
 
-            <select name="templates" id="templates" style="width: 95%;">
-                <option value="-">Select ...</option>
-                <!-- <option value="high_level_layered_architecture_diagram_by_jrichardsz">High Level Layered Architecture Diagram : by JRichardsz</option> -->
-            </select>
+                    <select name="templates" id="templates" style="width: 95%;">
+                        <option value="-">Select ...</option>                
+                    </select>
+                </section>                
 
-            <br><br>
+                <section class="margin_bottom">
+                    <label for="widthSlider">Width:</label>                    
+                </section>
 
-            <button id="refreshButton" type="button" class="hide">Refresh</button> 
+                <section class="margin_bottom">
+                    <input id="widthSlider" type="range" min="1" max="100" value="1" />                       
+                </section>                
 
-            <br><br>
-    
-            <textarea type="text"  id="yamlTextArea" class="textarea" >
-            </textarea>            
+                <section class="margin_bottom">
+                    <label for="heigthSlider">Height:</label>                    
+                </section>
+                
+                <section class="margin_bottom">
+                    <input id="heigthSlider" type="range" min="1" max="100" value="1"/>  
+                </section>                      
+
+                <section class="margin_bottom">
+                    <button id="renderButton" type="button" class="hide">Render diagram</button> 
+                </section> 
+                
+                        
+                <textarea type="text"  id="yamlTextArea" class="textarea" >
+                </textarea>            
+            </div>
+            <footer class="site-footer">
+                <span> <a href="https://github.com/diagramator/diagramator.github.io" target="_blank">&#128200; diagramator.github.io - v1.0.1</a> | Made with &#x2665; by <a href="https://github.com/jrichardsz" target="_blank">JRichardsz</a></span>        
+          </footer> 
         </div>
+
+        <div id="RightCol" >
+            <div class="left-menu">
+                <button id="exportButton" type="button" class="hide">Export as Image</button> 
+            </div>
+            <div id="canvas" class="canvas">
+
+            </div>
+        </div>
+
     </div>
-
-    <div class="split right">
-        <div class="left-menu">
-            <button id="exportButton" type="button" class="hide">Export as Image</button> 
-        </div>
-        <div id="canvas" class="canvas">
-
-        </div>
-    </div>
-
-  <footer class="site-footer">
-        <span> <a href="https://github.com/diagramator/diagramator.github.io" target="_blank">&#128200; diagramator.github.io - v1.0.0</a> | Made with &#x2665; by <a href="https://github.com/jrichardsz" target="_blank">JRichardsz</a></span>        
-  </footer>    
 
 </body>
 

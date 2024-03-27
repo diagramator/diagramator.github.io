@@ -38,10 +38,6 @@ body {
   border-radius: 50%;
 }
 
-#parent {
-  background: #999;
-  padding: 10px;
-}
 
 .child {
   background: #ccc;
@@ -76,11 +72,11 @@ body {
 {
   padding-bottom: 15px;
   font-size:15px;
-  position: fixed;
+  /* position: fixed; */
   bottom: 0px;
   width: 100%;  
   z-index: 1;
-  text-align: center;  
+  text-align: left;  
 }
 
 .site-footer a{
@@ -106,7 +102,7 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px; */
 
 }
 .main {
@@ -137,7 +133,7 @@ body {
   width: 100%;
   border: 1px solid black;
   margin: 10px 0;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px; */
   padding: 8px 8px;
   display: flex;
   flex-direction: row;
@@ -218,4 +214,48 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#parent {
+  display: flex;
+  width: 100%;
+}
+
+#LeftCol {
+  width: 35%;
+  /* resize: horizontal;
+  overflow: auto; */
+}
+#RightCol {
+  width: 65%;
+}
+
+/* margin bottom*/
+
+.margin_bottom {
+  margin-bottom: 10px;
+}
+
+/*3 columns style*/
+
+.column_3 {
+  float: left;
+  width: 30%;
+  padding: 10px;
+  /* height: 700px; */
+}
+
+/*Infrastructure*/
+
+.dotted {
+  border: dotted 3px black
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+}
+.grid-item {
+  text-align: center;
 }

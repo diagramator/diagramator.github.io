@@ -1,11 +1,18 @@
 import './css/main.css';
 const { load } = require("js-yaml");
 var selectedTemplate;
+var initialHeightPx = 700;
+var initialWidthPercentage = 65;
+var isDev = false;
 
 document.addEventListener("DOMContentLoaded", async function (event) {
     window["globalLibraries"] = {
         yamlLoad: load
     };
+
+    let params = (new URL(document.location)).searchParams;
+    isDev = params.get("env")=="dev" ? true: false;
+    console.log("isDev",isDev)
 
     const data = await fetch("/templates.yaml");
     const templatesText = await data.text();
@@ -20,10 +27,11 @@ document.addEventListener("DOMContentLoaded", async function (event) {
         selectTemplatesElement.appendChild(opt);
     }
 
-
     selectTemplatesElement.addEventListener('change', onChangeTemplate);
-    document.getElementById('refreshButton').addEventListener("click", onClickRefresh);
+    document.getElementById('renderButton').addEventListener("click", onClickRefresh);
     document.getElementById('exportButton').addEventListener("click", onClickExport);
+    document.getElementById('widthSlider').addEventListener("change", onChangeWidthSlider);
+    document.getElementById('heigthSlider').addEventListener("change", onChangeHeightSlider);
 });
 
 
@@ -33,16 +41,18 @@ function onChangeTemplate() {
     if(selectedTemplate.value=="-"){
         document.getElementById('yamlTextArea').value = "";
         document.getElementById("canvas").innerHTML = '';
-        document.getElementById('refreshButton').style.display = 'none';
+        document.getElementById('renderButton').style.display = 'none';
+        document.getElementById('widthSlider').style.display = 'none';
     }else{
         var resourcesUrl = selectedTemplate.getAttribute("resources_url");
-        fetch(`${resourcesUrl}/dist/data.yaml?version=${generateUUID()}`)
+        fetch(`${resourcesUrl}${getDataResource()}`)
             .then(function (response) {
                 return response.text();
             })
             .then(function (rawYaml) {
                 document.getElementById('yamlTextArea').value = rawYaml;
-                document.getElementById('refreshButton').style.display = 'inline';
+                document.getElementById('renderButton').style.display = 'inline';
+                document.getElementById('widthSlider').style.display = 'inline';
             });
     }
 
@@ -51,10 +61,22 @@ function onChangeTemplate() {
 function onClickRefresh() {
     var imported = document.createElement('script');
     var resourcesUrl = selectedTemplate.getAttribute("resources_url");
-    imported.src = `${resourcesUrl}/dist/render.js?version=${generateUUID()}`;
+    imported.src = `${resourcesUrl}${getRenderResource()}`;
     document.head.appendChild(imported);
     document.getElementById('exportButton').style.display = 'inline';
 }
+
+
+function onChangeWidthSlider(event) {
+    var newWidth = new Number(initialWidthPercentage) + new Number(event.target.value)*2;
+    document.getElementById('RightCol').style.width = `${newWidth}%`;
+}
+
+function onChangeHeightSlider(event) {
+    var newHeight = new Number(initialHeightPx) + new Number(event.target.value)*10;
+    console.log(initialHeightPx, newHeight)
+    document.getElementById('RightCol').style.height = `${newHeight}px`;
+}  
 
 function generateUUID() { // Public Domain/MIT
     var d = new Date().getTime();//Timestamp
@@ -86,14 +108,61 @@ function downloadURI(uri, name) {
 //Your modified code.
 function onClickExport() {
     var fileName = selectedTemplate.innerHTML.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '_');
-    html2canvas(document.getElementById('canvas')).then(canvas => {
+    html2canvas(document.getElementById('canvas'), {allowTaint: true}).then(canvas => {
         var myImage = canvas.toDataURL();
-        downloadURI(myImage, `${fileName}-${getDateAsSimpleFormat()}.png`);
+        sendImageToClipboard(myImage)
+        downloadURI(myImage, `${fileName}-${getDateAsSimpleFormat()}.png`);        
     });
+}
+
+function sendImageToClipboard(image){
+    var img = document.createElement('img');
+    img.src = image
+    
+    var div = document.createElement('div');
+    div.contentEditable = true;
+    div.appendChild(img);
+    document.body.appendChild(div);
+    
+    // do copy
+    selectText(div);
+    document.execCommand('Copy');
+    document.body.removeChild(div);
+}
+
+function selectText(element) {
+    var doc = document;
+    if (doc.body.createTextRange) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(element);
+        range.select();
+    } else if (window.getSelection) {
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(element);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
 }
 
 function getDateAsSimpleFormat() {
     var d = new Date();
     return d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + " " +
         d.getHours() + "-" + d.getMinutes() + "-" + d.getSeconds();
+}
+
+function getRenderResource(){
+    if(isDev){
+        return `/render.js?version=${generateUUID()}`;
+    }else{
+        return `/dist/render.js?version=${generateUUID()}`;
+    }
+}
+
+function getDataResource(){
+    if(isDev){
+        return `/data.yaml?version=${generateUUID()}`;
+    }else{
+        return `/dist/data.yaml?version=${generateUUID()}`;
+    }
 }
