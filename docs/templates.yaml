@@ -1,7 +1,7 @@
 - id: high_level_layered_architecture_diagram_by_usil_jrichardsz
   label: High Level Layered Architecture Diagram - by USIL/JRichardsz
-  resourcesUrl: https://cdn.jsdelivr.net/gh/usil/diagramator-usil-templates@main/diagrams/high_level_layered_architecture_diagram
+  resourcesUrl: https://cdn.jsdelivr.net/gh/usil/diagramator-usil-templates@v1.0.1/diagrams/high_level_layered_architecture_diagram
 
 - id: high_level_infrastructure_3_cols_diagram_by_usil_jrichardsz
   label: High Level Infrastructure 3 Cols Diagram - by USIL/JRichardsz
-  resourcesUrl: https://cdn.jsdelivr.net/gh/usil/diagramator-usil-templates@main/diagrams/high_level_infrastructure_3_cols_diagram
+  resourcesUrl: https://cdn.jsdelivr.net/gh/usil/diagramator-usil-templates@v1.0.1/diagrams/high_level_infrastructure_3_cols_diagram
